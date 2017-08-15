@@ -1,0 +1,53 @@
+<div *ngIf="!career">
+  <md-card>
+    <md-card-title>
+      Career not found!
+    </md-card-title>
+    <md-card-actions>
+      <a md-raised-button color="primary" [routerLink]="['/careers']">Back</a>
+    </md-card-actions>
+  </md-card>
+</div>
+
+<md-card class="col-xs-11" *ngIf="career">
+  <md-card-title>
+    Edit career
+  </md-card-title>
+  <form #careerForm="ngForm" (ngSubmit)="onSubmit(careerForm.value)" novalidate enctype="multipart/form-data">
+    <div class="form-group">
+      <md-input-container>
+        <input type="text" name="name" required placeholder="Career name" [ngModel]="career.name" mdInput minlength="3" maxlength="50" i18n-placeholder="Placeholder for the career name@@placeholderCareerName">
+      </md-input-container>
+      <p class="form-text text-muted" i18n="Career name hint@@helpCareerName">
+        The career name length must be between 3 and 50 characters.
+      </p>
+    </div>
+
+    <div class="form-group">
+      <md-input-container>
+        <input type="text" name="acronym" required placeholder="Career acronym" [ngModel]="career.acronym" mdInput minlength="1" maxlength="10" i18n-placeholder="Placeholder for the career acronym@@placeholderAcronymName">
+      </md-input-container>
+      <p class="form-text text-muted" i18n="Career acronym hint@@helpCareerAcronym">
+        An acronym is a short name that helps you indentify this career. The acronym name length must be between 3 and 50 characters.
+      </p>
+    </div>
+
+    <br><br>
+
+    <div class="form-group">
+      <button type="button" md-raised-button color="primary" name="button" (click)="uploadFile()">
+        <md-icon>file_upload</md-icon> Upload photo
+      </button>
+      <input id="fileToUpload" #inputFile type="file" accept="image/png" style="display:none;" (change)="onChange($event)" ng2FileSelect [uploader]="uploader" required>
+      <span *ngIf="!inputFile.value" class="text-muted">Select a photo that identifies this career (optional)</span>
+      <span id="fileName" #fileName class="text-muted">{{inputFile.value}}</span>
+    </div>
+
+    <br><br><br><br>
+
+    <md-card-actions>
+      <a md-raised-button color="warn" [routerLink]="['/careers']">Cancel</a>
+      <button type="submit" class="pull-right" name="button" [disabled]="!careerForm.form.valid" md-raised-button color="accent">Save</button>
+    </md-card-actions>
+  </form>
+</md-card>

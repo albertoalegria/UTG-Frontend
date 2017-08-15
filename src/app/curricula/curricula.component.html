@@ -1,0 +1,25 @@
+<div *ngIf="!curricula || curricula.length == 0">
+  <h1 i18n="no curricula|Error message that implies that no curricula were found|@@noCurricula">No curricula found</h1>
+</div>
+
+<div *ngFor="let curriculum of curricula">
+  <md-card class="col-xs-5 grid-list-card">
+    <img *ngIf="curriculum.career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png" [routerLink]="['/curricula/show', curriculum.id]" alt="curriculum career photo">
+    <img *ngIf="curriculum.career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(curriculum.career.imgPath)" [routerLink]="['/curricula/show', curriculum.id]" alt="curriculum career photo">
+
+    <md-card-title>
+      {{curriculum.name}}
+    </md-card-title>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['edit', curriculum.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(curriculum.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </md-card>
+</div>
+
+<button class="fab-embedded" md-fab color="accent" (click)="add()">
+  <md-icon>add</md-icon>
+</button>

@@ -1,0 +1,26 @@
+<div *ngIf="!courses || courses.length == 0">
+  <h1 i18n="no courses|Error message that implies that no courses are found|@@noCourses">No courses found</h1>
+</div>
+
+<div *ngFor="let course of courses">
+  <md-card class="col-xs-5 grid-list-card">
+    <img *ngIf="course.group.curriculum.career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png" [routerLink]="['/courses/show', course.id]" alt="career photo">
+    <img *ngIf="course.group.curriculum.career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(course.group.curriculum.career.imgPath)" [routerLink]="['/courses/show', course.id]" alt="career photo">
+
+    <md-card-title>
+      {{course.subject.name}} {{course.group.semester}} {{course.group.shift}}
+    </md-card-title>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['edit', course.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(course.id)" i18n="delete button|Pressing this button will delete the current element@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </md-card>
+</div>
+
+
+<button class="fab-embedded" md-fab color="accent" (click)="add()">
+  <md-icon>add</md-icon>
+</button>

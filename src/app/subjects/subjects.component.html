@@ -1,0 +1,40 @@
+<div *ngIf="!subjects || subjects.length == 0">
+  <h1 i18n="no subjects|Error message that implies that no subjects were found|@@noSubjects">No subjects found</h1>
+</div>
+
+<div *ngFor="let subject of subjects">
+  <md-card class="col-xs-3 grid-list-card">
+
+      <img *ngIf="subject.curriculum.career.imgPath == 'undefined'" class="md-card-img-small" md-card-image src="../../../assets/img/career.png" [routerLink]="['/subjects/show', subject.id]" alt="curriculum career photo">
+      <img *ngIf="subject.curriculum.career.imgPath != 'undefined'" class="md-card-img-small" md-card-image [src]="getImageUrl(subjet.curriculum.career.imgPath)" [routerLink]="['/subjects/show', subject.id]" alt="curriculum career photo">
+
+
+
+
+
+
+      <md-card-title>
+        {{subject.code}}
+
+      </md-card-title>
+
+<!--
+
+    <md-card-content>
+      <md-card-subtitle i18n="Amount of hours assigned@@hours">Hours:</md-card-subtitle>
+      <md-card-title>{{subject.hours}}</md-card-title>
+    </md-card-content>
+    -->
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['edit', subject.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(subject.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </md-card>
+</div>
+
+<button class="fab-embedded" md-fab color="accent" (click)="add()">
+  <md-icon>add</md-icon>
+</button>

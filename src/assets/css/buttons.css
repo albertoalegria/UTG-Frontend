@@ -1,0 +1,23 @@
+.button-delete {
+  color: #FF2400;
+}
+
+.button-edit {
+  color: #FF8200;
+}
+
+.button-delete:hover {
+  background-color: rgba(255, 36, 0, 0.1);
+  text-decoration: none;
+}
+
+.button-edit:hover {
+  background-color: rgba(255, 130, 0, 0.1);
+  text-decoration: none;
+}
+
+.fab-embedded {
+  right: 40px;
+  bottom: 20px;
+  position: fixed; /*!important*/
+}

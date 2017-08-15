@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  height: 100%;
+}
+
+.mat-sidenav-container, .mat-sidenav-content {
+    transform: none !important;
+}
+
+md-input-container {
+  width: 50%;
+}
+
+md-select {
+  width: 50%;
+}
+
+md-card .mat-checkbox-label {
+  font-weight: 400 !important;
+}

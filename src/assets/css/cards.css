@@ -1,0 +1,25 @@
+md-card {
+  margin-bottom: 20px;
+}
+
+.grid-list-card {
+  margin-right: 20px;
+  min-width: 240px;
+  max-width: 430px;
+}
+
+.md-card-img {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  height: 280px;
+}
+
+.md-card-img-small {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  height: 200px;
+}
+
+md-card img:hover {
+  cursor: pointer;
+}

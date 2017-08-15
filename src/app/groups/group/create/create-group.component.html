@@ -1,0 +1,76 @@
+<md-card class="col-xs-11">
+
+  <md-card-title style="display: inline;" i18n="Create group title@@groupCreate">
+    Create group
+  </md-card-title>
+
+  <md-checkbox class="pull-right" (click)="disableHelp()" i18n="Indicates whether the user needs help for the input or not@@showHelp">Show help</md-checkbox>
+
+  <br><br><br>
+
+  <form #groupForm="ngForm" (ngSubmit)="onSubmit(groupForm.value)" novalidate enctype="multipart/form-data">
+    <div class="form-group">
+      <md-select placeholder="Career" [(ngModel)]="careerId" (change)="updateCurricula()" i18n-placeholder="Placeholder to select the career of the group@@placeholderGroupCareer" [ngModelOptions]="{standalone: true}">
+        <md-option *ngFor="let career of careers" [value]="career.id">
+          {{career.name}}
+        </md-option>
+      </md-select>
+      <p *ngIf="help" class="form-text text-muted" i18n="Group career hint@@helpGroupCareer">
+        The group career
+      </p>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <md-select placeholder="Curriculum" name="curriculum" ngModel [(ngModel)]="curriculum" i18n-placeholder="Placeholder to select the group curriculum@@placeholderGroupCurriculum" required>
+        <md-option *ngFor="let curriculum of curricula" [value]="curriculum">
+          {{curriculum.name}}
+        </md-option>
+      </md-select>
+      <p *ngIf="help" class="form-text text-muted" i18n="Group curriculum hint@@helpGroupCurriculum">
+        The group curriculum
+      </p>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <md-select placeholder="Semester" name="semester" ngModel [(ngModel)]="semester" (change)="updateShifts()" i18n-placeholder="Placeholder to select the group semester@@placeholderGroupSemester" required>
+        <md-option *ngFor="let semester of semesters" [value]="semester">
+          {{semester}}
+        </md-option>
+      </md-select>
+      <p *ngIf="help" class="form-text text-muted" i18n="Group semester hint@@helpGroupSemester">
+        The group semester
+      </p>
+    </div>
+
+    <br>
+
+      <div class="form-group">
+        <md-select *ngIf="available" multiple placeholder="Shift" [(ngModel)]="groupsShifts" name="shift" ngModel i18n-placeholder="Placeholder to select the group shifts@@placeholderGroupShifts" required>
+          <md-option *ngFor="let shift of shifts" [value]="shift">
+            {{shift}}
+          </md-option>
+        </md-select>
+
+        <md-select *ngIf="!available" placeholder="No available shifts" i18n-placeholder="Placeholder that indicates that there are no available shifts for a new group@@placeholderGroupNoShifts" required>
+
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Group shift hint@@helpGroupShift">
+          Select the shift for the group. Selecting more than one shift will create copies for this group for each shift
+        </p>
+      </div>
+
+
+    <br>
+
+    <br><br><br><br>
+
+    <md-card-actions>
+      <a md-raised-button color="warn" [routerLink]="['/groups']">Cancel</a>
+      <button type="submit" class="pull-right" name="button" [disabled]="!groupForm.form.valid" md-raised-button color="accent">Save</button>
+    </md-card-actions>
+  </form>
+</md-card>

@@ -1,0 +1,41 @@
+<div *ngIf="!curriculum">
+  <md-card>
+    <md-card-title>
+      Curriculum not found!
+    </md-card-title>
+    <md-card-actions>
+      <a md-raised-button color="primary" [routerLink]="['/curricula']">Back</a>
+    </md-card-actions>
+  </md-card>
+</div>
+
+<md-card class="col-xs-11" *ngIf="curriculum">
+  <md-card-title>
+    Edit curriculum
+  </md-card-title>
+  <form #curriculumForm="ngForm" (ngSubmit)="onSubmit(curriculumForm.value)" novalidate enctype="multipart/form-data">
+    <div class="form-group">
+      <md-input-container>
+        <input type="text" name="name" required placeholder="Curriculum name" [ngModel]="curriculum.name" mdInput minlength="3" maxlength="50" i18n-placeholder="Placeholder for the curriculum name@@placeholderCurriculumName">
+      </md-input-container>
+      <p class="form-text text-muted" i18n="Curriculum name hint@@helpCurriculumName">
+        The curriculum name length must be between 3 and 50 characters.
+      </p>
+    </div>
+
+    <div class="form-group">
+      <md-select placeholder="Career" name="career" [ngModel]="curriculum.career" i18n-placeholder="Placeholder to select the curriculum career@@placeholderCurriculumCareer" required>
+        <md-option *ngFor="let career of careers" [value]="career">
+          {{career.name}}
+        </md-option>
+      </md-select>
+    </div>
+
+    <br><br><br><br>
+
+    <md-card-actions>
+      <a md-raised-button color="warn" [routerLink]="['/curricula']">Cancel</a>
+      <button type="submit" class="pull-right" name="button" [disabled]="!curriculumForm.form.valid" md-raised-button color="accent">Save</button>
+    </md-card-actions>
+  </form>
+</md-card>

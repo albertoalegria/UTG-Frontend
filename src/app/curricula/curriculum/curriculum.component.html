@@ -1,0 +1,29 @@
+<md-card class="col-xs-10">
+  <div *ngIf="!curriculum">
+    <md-card-title>
+      Curriculum not found!
+    </md-card-title>
+  </div>
+  <div *ngIf="curriculum">
+    <img *ngIf="curriculum.career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png" [routerLink]="['/curricula/show', curriculum.id]" alt="curriculum career photo">
+    <img *ngIf="curriculum.career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(curriculum.career.imgPath)" [routerLink]="['/curricula/show', curriculum.id]" alt="curriculum career photo">
+
+    <md-card-title>
+      {{curriculum.name}}
+    </md-card-title>
+    <md-card-subtitle>
+      {{curriculum.career.name}}
+    </md-card-subtitle>
+    <md-card-content>
+      <p><strong>Curriculum id:</strong> {{curriculum.id}}</p>
+      <p><strong>Curriculum career image photo:</strong> {{curriculum.career.imgPath}}</p>
+    </md-card-content>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['/curricula/edit', curriculum.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(curriculum.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </div>
+</md-card>

@@ -1,0 +1,95 @@
+<md-card class="col-xs-8 col-xs-offset-1">
+  <div *ngIf="!subject">
+    <md-card-title>
+      Subject not found!
+    </md-card-title>
+  </div>
+  <div *ngIf="subject">
+    <img *ngIf="subject.curriculum.career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png" [routerLink]="['/subjects/show', subject.id]" alt="subject career photo">
+    <img *ngIf="subject.curriculum.career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(subject.curriculum.career.imgPath)" [routerLink]="['/subjects/show', subject.id]" alt="subject career photo">
+    <md-card-header>
+      <md-card-title>
+        {{subject.name}}
+      </md-card-title>
+
+      <md-card-subtitle>
+        {{subject.code}}
+      </md-card-subtitle>
+    </md-card-header>
+
+    <md-card-content>
+      <md-card-subtitle>
+        Id
+      </md-card-subtitle>
+
+      <md-card-title>
+        {{subject.id}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle>
+        Semester
+      </md-card-subtitle>
+
+      <md-card-title>
+        {{subject.semester}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle>
+        Type
+      </md-card-subtitle>
+
+      <md-card-title>
+        {{subject.type}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle>
+        Hours
+      </md-card-subtitle>
+
+      <md-card-title>
+        {{subject.hours}}
+      </md-card-title>
+
+      <div *ngIf="subject.laboratoryHours > 0">
+        <md-divider></md-divider>
+
+        <br>
+
+        <md-card-subtitle>
+          Laboratory hours
+        </md-card-subtitle>
+
+        <md-card-title>
+          {{subject.laboratoryHours}}
+        </md-card-title>
+      </div>
+
+      <md-card-subtitle>
+        Curriculum
+      </md-card-subtitle>
+
+      <md-card-title>
+        {{subject.curriculum.name}}
+      </md-card-title>
+    </md-card-content>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['/subjects/edit', subject.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(subject.id)" i18n="delete button|Pressing this button will delete the current element@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </div>
+</md-card>

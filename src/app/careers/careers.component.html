@@ -1,0 +1,25 @@
+<div *ngIf="!careers || careers.length == 0">
+  <h1 i18n="no careers|Error message that implies that no careers are found|@@noCareers">No careers found</h1>
+</div>
+
+<div *ngFor="let career of careers">
+  <md-card class="col-xs-5 grid-list-card">
+    <img *ngIf="career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png" [routerLink]="['/careers/show', career.id]" alt="career photo">
+    <img *ngIf="career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(career.imgPath)" [routerLink]="['/careers/show', career.id]" alt="career photo">
+
+    <md-card-title>
+      {{career.name}}
+    </md-card-title>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['edit', career.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(career.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </md-card>
+</div>
+
+<button class="fab-embedded" md-fab color="accent" (click)="add()">
+  <md-icon>add</md-icon>
+</button>

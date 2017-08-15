@@ -1,0 +1,65 @@
+<md-card class="col-xs-10">
+  <div *ngIf="!course">
+    <md-card-title>
+      Course not found!
+    </md-card-title>
+  </div>
+  <div *ngIf="course">
+    <img *ngIf="course.group.curriculum.career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png"
+      [routerLink]="['/courses/show', course.id]" alt="course photo">
+    <img *ngIf="course.group.curriculum.career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(course.group.curriculum.career.imgPath)"
+      [routerLink]="['/courses/show', course.id]" alt="course photo">
+
+    <md-card-content>
+      <md-card-subtitle i18n="Course id@@courseId">
+        Id
+      </md-card-subtitle>
+      <md-card-title>
+        {{course.id}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle i18n="Course id@@courseSize">
+        Size
+      </md-card-subtitle>
+      <md-card-title>
+        {{course.size}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle i18n="Course id@@courseGroup">
+        Group
+      </md-card-subtitle>
+      <md-card-title>
+        {{course.group.semester}} {{course.group.shift}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle i18n="Course id@@courseSubject">
+        Subject
+      </md-card-subtitle>
+      <md-card-title>
+        {{course.subject.name}}
+      </md-card-title>
+    </md-card-content>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['/courses/edit', course.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(course.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </div>
+
+
+
+</md-card>

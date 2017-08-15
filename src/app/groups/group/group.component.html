@@ -1,0 +1,62 @@
+<md-card class="col-xs-10">
+  <div *ngIf="!group">
+    <md-card-title i18n="Group not found message@@notFoundGroup">
+      Group not found!
+    </md-card-title>
+  </div>
+
+  <div *ngIf="group">
+    <img *ngIf="group.curriculum.career.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/career.png" [routerLink]="['/groups/show', group.id]" alt="group career photo">
+    <img *ngIf="group.curriculum.career.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(group.curriculum.career.imgPath)" [routerLink]="['/groups/show', group.id]" alt="group career photo">
+
+    <md-card-content>
+      <md-card-subtitle i18n="Group id@@groupId">
+        Id
+      </md-card-subtitle>
+      <md-card-title>
+        {{group.id}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle i18n="Group semester@@groupSemester">
+        Semester
+      </md-card-subtitle>
+      <md-card-title>
+        {{group.semester}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle i18n="Group shift@@groupShift">
+        Shift
+      </md-card-subtitle>
+      <md-card-title>
+        {{group.shift}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+
+      <br>
+
+      <md-card-subtitle i18n="Group curriculum@@groupCurriculum">
+        Curriculum
+      </md-card-subtitle>
+      <md-card-title>
+        {{group.curriculum.name}}
+      </md-card-title>
+    </md-card-content>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['/groups/edit', group.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(group.id)" i18n="delete button|Pressing this button will delete the current element@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+
+  </div>
+</md-card>

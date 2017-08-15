@@ -1,0 +1,98 @@
+<md-card class="col-xs-11">
+
+  <md-card-title style="display: inline;">
+    Create subject
+  </md-card-title>
+
+  <md-checkbox class="pull-right" (click)="disableHelp()" i18n="Indicates whether the user needs help for the inputs or not@@showHelp">Show help</md-checkbox>
+
+  <br><br><br>
+
+  <form #subjectForm="ngForm" (ngSubmit)="onSubmit(subjectForm.value)" novalidate enctype="multipart/form-data">
+    <div class="form-group">
+      <md-input-container>
+        <input type="text" name="name" required placeholder="Subject name" ngModel mdInput minlength="3" maxlength="50" i18n-placeholder="Placeholder for the subject name@@placeholderSubjectName">
+      </md-input-container>
+      <p *ngIf="help" class="form-text text-muted" i18n="subject name hint@@helpSubjectName">
+        This is the name of the subject. The name length must be between 3 and 50 characters.
+      </p>
+    </div>
+
+    <div class="form-group">
+      <md-input-container>
+        <input type="text" name="code" required placeholder="Subject code" ngModel mdInput minlength="1" maxlength="10" i18n-placeholder="Placeholder for the subject code@@placeholderSubjectCode">
+      </md-input-container>
+      <p *ngIf="help" class="form-text text-muted" i18n="subject code hint@@helpSubjectCode">
+        A code can identify the subjects. The code length must be between 1 and 10 characters.
+      </p>
+    </div>
+
+    <br>
+
+     <div class="form-group">
+       <md-select placeholder="Semester" name="semester" ngModel i18n-placeholder="Placeholder to select the group semester@@placeholderSubjectSemester" required>
+         <md-option *ngFor="let semester of semesters" [value]="semester">
+         {{semester}}
+       </md-option>
+       </md-select>
+       <p *ngIf="help" class="form-text text-muted" i18n="subject semester hint@@helpSubjectSemester">
+         The subject semester
+       </p>
+     </div>
+
+    <div class="form-group">
+      <md-input-container>
+        <input type="number" name="hours" required placeholder="Subject hours" ngModel [(ngModel)]="hours" mdInput min="1" max="20" i18n-placeholder="Placeholder for the subject hours@@placeholderSubjectHours">
+      </md-input-container>
+      <p *ngIf="help" class="form-text text-muted" i18n="subject hours hint@@helpSubjectHours">
+        The amount of hours assigned to this subject. The subject hours must be between the range from 1 to 20.
+      </p>
+    </div>
+
+    <md-checkbox (click)="hide()" i18n="Indicates whether this subjects needs a laboratory or not">Needs laboratory?</md-checkbox>
+    <br>
+    <div *ngIf="!hidden">
+      <div class="form-group">
+        <md-input-container>
+          <input type="number" name="laboratoryHours" required placeholder="Laboratory hours" ngModel [(ngModel)]="laboratoryHours" mdInput min="1" max="10" i18n-placeholder="Placeholder for the subject laboratory hours@@placeholderSubjectLaboratoryHours">
+        </md-input-container>
+        <p *ngIf="help" class="form-text text-muted" i18n="laboratory hours hint@@helpSubjectLaboratoryHours">
+          The amount of laboratory hours assigned to this subject. The subject hours must be between the range from 1 to 10 and must be less than the normal hours.
+        </p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <md-select placeholder="Career" [(ngModel)]="careerId" (change)="updateCurricula()" i18n-placeholder="Placeholder to select the career of the curriculum that the subject will belong to@@placeholderSubjectCareer" [ngModelOptions]="{standalone: true}">
+        <md-option *ngFor="let career of careers" [value]="career.id">
+          {{career.name}}
+        </md-option>
+      </md-select>
+      <p *ngIf="help" class="form-text text-muted" i18n="Career hint@@helpSubjectCareer">
+        The subject career
+      </p>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <md-select placeholder="Curriculum" name="curriculum" ngModel i18n-placeholder="Placeholder to select the subject curriculum@@placeholderSubjectCurriculum" required>
+        <md-option *ngFor="let curriculum of curricula" [value]="curriculum">
+          {{curriculum.name}}
+        </md-option>
+      </md-select>
+      <p *ngIf="help" class="form-text text-muted" i18n="Curriculum hint@@helpSubjectCurriculum">
+        The subject curriculum
+      </p>
+    </div>
+
+    <br><br><br><br>
+
+    <md-card-actions>
+      <a md-raised-button color="warn" [routerLink]="['/subjects']">Cancel</a>
+      <button type="submit" class="pull-right" name="button" [disabled]="isValid(subjectForm.form.valid)" md-raised-button color="accent">Save</button>
+    </md-card-actions>
+  </form>
+</md-card>

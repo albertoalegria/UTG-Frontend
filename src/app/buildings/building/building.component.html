@@ -1,0 +1,42 @@
+
+<md-card class="col-xs-10">
+  <div *ngIf="!building">
+    <md-card-title>
+      Building not found!
+    </md-card-title>
+  </div>
+  <div *ngIf="building">
+    <img *ngIf="building.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/building.jpg" [routerLink]="['/buildings/show', building.id]" alt="building photo">
+    <img *ngIf="building.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(building.imgPath)" [routerLink]="['/buildings/show', building.id]" alt="building photo">
+
+    <md-card-content>
+      <md-card-subtitle i18n="Building id@@buildingId">
+        Id
+      </md-card-subtitle>
+      <md-card-title>
+        {{building.id}}
+      </md-card-title>
+
+      <md-divider></md-divider>
+      
+      <br>
+
+      <md-card-subtitle i18n="Building name@@buildingName">
+        Building name
+      </md-card-subtitle>
+      <md-card-title>
+        {{building.name}}
+      </md-card-title>
+    </md-card-content>
+
+    <md-card-actions>
+      <div class="pull-right">
+        <a class="button-edit" md-button [routerLink]="['/buildings/edit', building.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+        <a class="button-delete" md-button (click)="openConfirmationDialog(building.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+      </div>
+    </md-card-actions>
+  </div>
+
+
+
+</md-card>

@@ -1,0 +1,43 @@
+md-toolbar {
+  margin-right: 0;
+}
+
+md-sidenav-container {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  margin: 25px;
+}
+
+.sidenav {
+  padding: 10px;
+  min-width: 150px;
+}
+
+.toolbar-filler {
+  flex: 1 1 auto;
+}
+
+.toolbar-menu {
+  padding: 0 14px 0 14px;
+  color: white;
+}
+
+.icon-button {
+  box-shadow: none;
+  user-select: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  filter: none;
+  font-weight: normal;
+  height: auto;
+  line-height: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}

@@ -1,0 +1,61 @@
+<md-card class="col-xs-11">
+    <md-card-title style="display: inline;" i18n="Create classroom title@@classroomCreate">
+        Create classroom
+    </md-card-title>
+
+    <md-checkbox class="pull-right" (click)="disableHelp()">Show help</md-checkbox>
+
+    <br><br><br>
+
+    <form #classroomForm="ngForm" (ngSubmit)="onSubmit(classroomForm.value)" novalidate enctype="multipart/form-data">
+        <div class="form-group">
+            <md-input-container>
+                <input type="text" name="identifier" required placeholder="Classroom identifier" ngModel mdInput minlength="1" maxlength="15"
+                    i18n-placeholder="Placeholder for the classroom name@@placeholderClassroomName">
+            </md-input-container>
+
+            <p *ngIf="help" class="form-text text-muted" i18n="Classroom identifier hint@@helpClassroomIdentifier">
+                The classroom identifier. The identifier length must be between 1 and 15 characters.
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-input-container>
+                <input type="number" name="size" required placeholder="Classroom size" ngModel mdInput min="1" max="100" i18n-placeholder="Placeholder for the classroom size@@placeholderClassroomSize">
+            </md-input-container>
+
+            <p *ngIf="help" class="form-text text-muted" i18n="Classroom size hint@@helpClassroomSize">
+                The classroom size must be between 1 and 100.
+            </p>
+        </div>
+        <br>
+        <div class="form-group">
+            <md-select placeholder="Type" name="type" required ngModel i18n-palceholder="Placeholder to select the classroom type@@placeholderClassroomType">
+                <md-option *ngFor="let type of types" [value]="type">
+                    {{type}}
+                </md-option>
+            </md-select>
+
+            <p *ngIf="help" class="form-text text-muted" i18n="Classroom type hint@@helpClassroomType">
+                A classroom can be either a normal classroom or a laboratory classroom. Choose one.
+            </p>
+        </div>
+        <br>
+        <div class="form-group">
+            <md-select placeholder="Building" name="building" required ngModel i18n-placeholder="Plceholder to select the classroom building@@placeholderClassroomBuilding">
+                <md-option *ngFor="let building of buildings" [value]="building">
+                    {{building.name}}
+                </md-option>
+            </md-select>
+
+            <p *ngIf="help" class="form-text text-muted" i18n="Classroom building hint@@helpClassroomBuilding">
+                Select the classroom building
+            </p>
+        </div>
+
+        <md-card-actions>
+            <a md-raised-button color="warn" [routerLink]="['/classrooms']">Cancel</a>
+            <button type="submit" class="pull-right" name="button" [disabled]="!classroomForm.form.valid" md-raised-button color="accent">Save</button>
+        </md-card-actions>
+    </form>
+</md-card>

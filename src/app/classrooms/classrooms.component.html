@@ -1,0 +1,25 @@
+<div *ngIf="!classrooms || classrooms.length == 0">
+  <h1 i18n="no classroms|Error message that implies that no classrooms are found|@@noClassrooms">No classrooms found</h1>
+</div>
+
+<div *ngFor="let classroom of classrooms">
+    <md-card class="col-xs-5 grid-list-card">
+        <img *ngIf="classroom.building.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/building.jpg" [routerLink]="['/classrooms/show', classroom.id]" alt="building photo">
+        <img *ngIf="classroom.building.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(classroom.building.imgPath)" [routerLink]="['/classrooms/show', classroom.id]" alt="building photo">
+
+        <md-card-title>
+            {{classroom.building.name}} {{classroom.identifier}}
+        </md-card-title>
+
+        <md-card-actions>
+            <div class="pull-right">
+                <a class="button-edit" md-button [routerLink]="['edit', classroom.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+                <a class="button-delete" md-button (click)="openConfirmationDialog(classroom.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+            </div>
+        </md-card-actions>
+    </md-card>
+</div>
+
+<button class="fab-embedded" md-fab color="accent" (click)="add()">
+  <md-icon>add</md-icon>
+</button>

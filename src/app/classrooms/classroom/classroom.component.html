@@ -1,0 +1,75 @@
+<md-card class="col-xs-10">
+    <div *ngIf="!classroom">
+        <md-card-title i18n="Classroom not found message@@notFoundClassroom">
+            Classroom not found!
+        </md-card-title>
+    </div>
+
+    <div *ngIf="classroom">
+        <img *ngIf="classroom.building.imgPath == 'undefined'" class="md-card-img" md-card-image src="../../../assets/img/building.jpg"
+            [routerLink]="['/classrooms/show', classroom.building.id]" alt="building photo">
+        <img *ngIf="classroom.building.imgPath != 'undefined'" class="md-card-img" md-card-image [src]="getImageUrl(classroom.building.imgPath)"
+            [routerLink]="['/classrooms/show', classroom.building.id]" alt="building photo">
+
+        <md-card-content>
+            <md-card-subtitle i18n="Classroom id@@classroomId">
+                Id
+            </md-card-subtitle>
+
+            <md-card-title>
+                {{classroom.id}}
+            </md-card-title>
+
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle i18n="Classroom size@@classroomSize">
+                Size
+            </md-card-subtitle>
+
+            <md-card-title>
+                {{classroom.size}}
+            </md-card-title>
+
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle i18n="Classroom identifier@@classroomIdentifier">
+                Identifier
+            </md-card-subtitle>
+
+            <md-card-title>
+                {{classroom.identifier}}
+            </md-card-title>
+
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle i18n="Classroom type@@classroomType">
+                Type
+            </md-card-subtitle>
+
+            <md-card-title>
+                {{classroom.type}}
+            </md-card-title>
+
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle i18n="Classroom building@@classroomBuilding">
+                Building
+            </md-card-subtitle>
+
+            <md-card-title>
+                {{classroom.building.name}}
+            </md-card-title>
+        </md-card-content>
+
+        <md-card-actions>
+            <div class="pull-right">
+                <a class="button-edit" md-button [routerLink]="['/classrooms/edit', classroom.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated@@edit">Edit</a>
+                <a class="button-delete" md-button (click)="openConfirmationDialog(classroom.id)" i18n="delete button|Pressing this button will delete the current element@@delete">Delete</a>
+            </div>
+        </md-card-actions>
+    </div>
+</md-card>
