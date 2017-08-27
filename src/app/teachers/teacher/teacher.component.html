@@ -1,0 +1,91 @@
+<md-card class="col-xs-8 col-xs-offset-1">
+    <div *ngIf="!teacher">
+        <md-card-title>
+            Teacher not found!
+        </md-card-title>
+
+        <md-card-actions>
+                <a md-button color="primary" [routerLink]="['/teachers']">Back</a>                
+        </md-card-actions>
+    </div>
+
+    <div *ngIf="teacher">
+        <md-card-header>
+            <img *ngIf="teacher.imgPath == 'undefined'" md-card-avatar src="../../../assets/img/teacher.png" [routerLink]="['/teachers/show', teacher.id]"
+                alt="teacher photo">
+            <img *ngIf="teacher.imgPath != 'undefined'" md-card-avatar [src]="getImageUrl(teacher.imgPath)" [routerLink]="['/teachers/show', teacher.id]"
+                alt="teacher photo">
+
+            <md-card-title>
+                {{teacher.firstName}}
+            </md-card-title>
+            <md-card-subtitle>
+                {{teacher.studyLevel}}
+            </md-card-subtitle>
+        </md-card-header>
+
+        <md-card-content>
+            <md-card-subtitle>
+                Id
+            </md-card-subtitle>
+            <md-card-title>
+                {{teacher.id}}
+            </md-card-title>
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle>
+                Name
+            </md-card-subtitle>
+            <md-card-title>
+                {{teacher.firstName}} {{teacher.lastName}}
+            </md-card-title>
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle>
+                Study level
+            </md-card-subtitle>
+            <md-card-title>
+                {{teacher.studyLevel}}
+            </md-card-title>
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle>
+                Hours
+            </md-card-subtitle>
+            <md-card-title>
+                {{teacher.hours}}
+            </md-card-title>
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle>
+                Check in
+            </md-card-subtitle>
+            <md-card-title>
+                {{teacher.checkIn}}
+            </md-card-title>
+            <md-divider></md-divider>
+            <br>
+
+            <md-card-subtitle>
+                Check out
+            </md-card-subtitle>
+            <md-card-title>
+                {{teacher.checkOut}}
+            </md-card-title>
+            <md-divider></md-divider>
+            <br>
+
+        </md-card-content>
+
+        <md-card-actions>
+            <div class="pull-right">
+                <a class="button-edit" md-button [routerLink]="['edit', teacher.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+                <a class="button-delete" md-button (click)="openConfirmationDialog(teacher.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+            </div>
+        </md-card-actions>
+    </div>
+</md-card>

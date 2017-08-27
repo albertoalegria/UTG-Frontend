@@ -28,6 +28,20 @@ export class BuildingService {
                         .catch(this.errorHandler);
   }
 
+  getAllByClassroomType(type: string): Observable<Building[]> {
+    let params = new URLSearchParams();
+    params.set('type', type);
+
+    let options = new RequestOptions({
+      headers: this.headers,
+      params: params
+    });
+
+    return this.http.get(this.buildings + '/classroom', options)
+                      .map(this.response2Json)
+                      .catch(this.errorHandler);
+  }
+
   create(building: Building): Observable<number> {
     let options = new RequestOptions({
       headers: this.headers

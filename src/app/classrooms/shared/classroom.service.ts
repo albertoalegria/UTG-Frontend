@@ -44,6 +44,50 @@ export class ClassroomService {
                             .catch(this.errorHandler);
     }
 
+    getByBuildingAndType(id: number, type: string): Observable<Classroom[]> {
+        let params = new URLSearchParams();
+        params.set('id', id.toString());
+        params.set('type', type);
+
+        let options = new RequestOptions({
+            headers: this.headers,
+            params: params
+        });
+        
+        return this.http.get(this.classrooms + '/buildingandtype', options)
+                            .map(this.response2Json)
+                            .catch(this.errorHandler);
+    }
+
+    getByBuildingAndType2(id: number, type: string): Observable<Classroom[]> {
+        let params = new URLSearchParams();
+        params.set('id', id.toString());
+        params.set('type', type);
+
+        let options = new RequestOptions({
+            headers: this.headers,
+            params: params
+        });
+        
+        return this.http.get(this.classrooms + '/buildingandtype2', options)
+                            .map(this.response2Json)
+                            .catch(this.errorHandler);
+    }
+
+    getByType(type: string): Observable<Classroom[]> {
+        let params = new URLSearchParams();
+        params.set('type', type);
+
+        let options = new RequestOptions({
+            headers: this.headers,
+            params: params
+        });
+        
+        return this.http.get(this.classrooms + '/building/type', options)
+                            .map(this.response2Json)
+                            .catch(this.errorHandler);
+    }
+
     create(classroom: Classroom): Observable<number> {
         console.log(classroom);
 

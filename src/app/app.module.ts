@@ -43,6 +43,11 @@ import { EditClassroomComponent } from './classrooms/classroom/edit/edit-classro
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './courses/course/course.component';
 import { CreateCourseComponent } from './courses/course/create/create-course.component';
+import { EditCourseComponent } from './courses/course/edit/edit-course.component';
+
+import { TeachersComponent } from './teachers/teachers.component';
+import { TeacherComponent } from './teachers/teacher/teacher.component';
+import { CreateTeacherComponent } from './teachers/teacher/create/create-teacher.component';
 
 import { DeleteConfirmationComponent } from './delete-confirmation.component';
 
@@ -55,6 +60,7 @@ import { SubjectService } from './subjects/shared/subject.service';
 import { GroupService } from './groups/shared/group.service';
 import { ClassroomService } from './classrooms/shared/classroom.service';
 import { CourseService } from './courses/shared/course.service';
+import { TeacherService } from './teachers/shared/teacher.service';
 
 import { BuildingsRoutingModule } from './buildings/buildings-routing.module';
 import { CareersRoutingModule } from './careers/careers-routing.module';
@@ -63,6 +69,7 @@ import { SubjectsRoutingModule } from './subjects/subjects-routing.module';
 import { GroupsRoutingModule } from './groups/groups-routing.module';
 import { ClassroomsRoutingModule } from './classrooms/classrooms-routing.module';
 import { CoursesRoutingComponent } from './courses/courses-routing.module';
+import { TeachersRoutingModule } from './teachers/teachers-routing.module';
 
 @NgModule({
   declarations: [
@@ -94,6 +101,10 @@ import { CoursesRoutingComponent } from './courses/courses-routing.module';
     CoursesComponent,
     CourseComponent,
     CreateCourseComponent,
+    EditCourseComponent,
+    TeachersComponent,
+    TeacherComponent,
+    CreateTeacherComponent,
     DeleteConfirmationComponent,
     FileSelectDirective
   ],
@@ -107,12 +118,13 @@ import { CoursesRoutingComponent } from './courses/courses-routing.module';
     GroupsRoutingModule,
     ClassroomsRoutingModule,
     CoursesRoutingComponent,
+    TeachersRoutingModule,
     FormsModule,
     HttpModule,
     MaterialModule,
     JsonpModule
   ],
-  providers: [ BuildingService, CareerService, CurriculumService, SubjectService, UtilsService, GroupService, ClassroomService, CourseService ],
+  providers: [ BuildingService, CareerService, CurriculumService, SubjectService, UtilsService, GroupService, ClassroomService, CourseService, TeacherService ],
   entryComponents: [ DeleteConfirmationComponent ],
   bootstrap: [ AppComponent ]
 })

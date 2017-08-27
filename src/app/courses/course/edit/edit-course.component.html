@@ -1,45 +1,126 @@
-<div *ngIf="!building">
+<div *ngIf="!course">
   <md-card>
     <md-card-title>
-      Building not found!
+      Course not found
     </md-card-title>
-
     <md-card-actions>
-      <a md-raised-button color="primary" [routerLink]="['/buildings']">Back</a>
+      <a md-raised-button color="primary" [routerLink]="['/courses']">Back</a>
     </md-card-actions>
   </md-card>
 </div>
 
-<md-card *ngIf="building" class="col-xs-11">
-  <md-card-title>
-    Edit building
-  </md-card-title>
+<div *ngIf="course">
 
-  <form #buildingForm="ngForm" (ngSubmit)="onSubmit(buildingForm.value)" novalidate enctype="multipart/form-data">
-    <div class="form-group">
-      <md-input-container>
-        <input type="text" name="name" required placeholder="Building name" [ngModel]="building.name" mdInput minlength="1" maxlength="15" i18n-placeholder="Placeholder for the building name@@placeholderBuildingName">
-      </md-input-container>
-      <p class="form-text text-muted" i18n="Hint for the building name requeriments@@helpBuildingName">
-        The building name length must be between 1 and 15 characters.
-      </p>
-    </div>
-    <br><br>
+  <md-card class="col-xs-11">
 
-      <div class="form-group input-container">
-        <button type="button" md-raised-button color="primary" name="button" (click)="uploadFile()">
-          <md-icon>file_upload</md-icon> Upload photo
-        </button>
-        <input id="fileToUpload" #inputFile type="file" accept="image/png" style="display:none;" (change)="onChange($event)" ng2FileSelect [uploader]="uploader" required>
-        <span *ngIf="!inputFile.value" class="text-muted">Select a photo that identifies this building (optional)</span>
-        <span id="fileName" #fileName class="text-muted">{{inputFile.value}}</span>
+    <md-card-title style="display: inline;" i18n="Edit course title@@courseEdit">
+      Edit course
+    </md-card-title>
+
+    <md-checkbox class="pull-right" (click)="disableHelp()" i18n="Indicates whether the user needs help for the input or not@@showHelp">Show help</md-checkbox>
+
+    <br><br><br>
+
+    <form #courseForm="ngForm" (ngSubmit)="onSubmit(courseForm.value)" novalidate enctype="multipart/form-data">
+      <div class="form-group">
+        <md-input-container>
+          <input type="number" name="size" required placeholder="Course size" [ngModel]="course.size" mdInput min="1" max="100" i18n-placeholder="Placeholder for the course size@@placeholderCourseSize">
+        </md-input-container>
+        <p *ngIf="help" class="form-text text-muted" i18n="Course size hint@@helpCourseSize">
+          How many students are going to attend this course. The minimum size is 1 and the maximum is 100.
+        </p>
       </div>
 
-      <br><br>
+      <div class="form-group">
+        <md-select placeholder="Career" [(ngModel)]="career" (change)="updateCurricula()" i18n-placeholder="Placeholder to select the course career@@placeholderCourseCareer"
+          [ngModelOptions]="{standalone: true}">
+          <md-option *ngFor="let career of careers" [value]="career">
+            {{career.name}}
+          </md-option>
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Course career hint@@helpCourseCareer">
+          The course career
+        </p>
+      </div>
 
-    <md-card-actions>
-      <a md-raised-button color="warn" [routerLink]="['/buildings']">Cancel</a>
-      <button type="submit" class="pull-right" name="button" [disabled]="!buildingForm.form.valid" md-raised-button color="accent">Save</button>
-    </md-card-actions>
-  </form>
-</md-card>
+      <br>
+
+      <div class="form-group">
+        <md-select placeholder="Curriculum" name="curriculum" [(ngModel)]="curriculum" (change)="updateGroups()" i18n-placeholder="Placeholder to select the course curriculum@@placeholderCourseCurriculum"
+          [ngModelOptions]="{standalone: true}">
+          <md-option *ngFor="let curriculum of curricula" [value]="curriculum">
+            {{curriculum.name}}
+          </md-option>
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Group curriculum hint@@helpCourseCurriculum">
+          The course curriculum
+        </p>
+      </div>
+
+      <br>
+
+      <div class="form-group">
+        <md-select placeholder="Group" name="group" [(ngModel)]="group" ngModel (change)="updateSubjects()" required i18n-placeholder="Placeholder to select the course group@@placeholderCourseGroup">
+          <md-option *ngFor="let group of groups" [value]="group">
+            {{group.semester}} {{group.shift}}
+          </md-option>
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Group group hint@@helpCourseGroup">
+          The course group
+        </p>
+      </div>
+      <br>
+
+      <div class="form-group">
+        <md-select placeholder="Subject" name="subject" [(ngModel)]="subject" ngModel (change)="updateClassrooms()" required i18n-placeholder="Placeholder to select the course subject@@placeholderCourseSubject">
+          <md-option *ngFor="let subject of subjects" [value]="subject">
+            {{subject.name}}
+          </md-option>
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Course subject hint@@helpCourseSubject">
+          The course subject
+        </p>
+      </div>
+      <br>
+
+      <div class="form-group">
+        <md-select placeholder="Classrooms" name="classrooms1" multiple [(ngModel)]="classrooms1" [ngModelOptions]="{standalone: true}"
+          required>
+          <md-optgroup *ngFor="let bh of buildingsHolder" [label]="bh.building.name">
+            <md-option *ngFor="let c of bh.classrooms" [value]="c">
+              {{bh.building.name}}-{{c.identifier}}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Group curriculum hint@@helpCoursePossibleClassrooms">
+          The course possible classrooms
+        </p>
+      </div>
+
+      <br>
+
+      <div *ngIf="needsLabs">
+        <div class="form-group">
+          <md-select placeholder="Laboratory Classrooms" name="classrooms2" multiple [(ngModel)]="classrooms2" [ngModelOptions]="{standalone: true}"
+            required>
+            <md-optgroup *ngFor="let bh of buildingsHolder2" [label]="bh.building.name">
+              <md-option *ngFor="let c of bh.classrooms" [value]="c">
+                {{bh.building.name}}-{{c.identifier}}
+              </md-option>
+            </md-optgroup>
+          </md-select>
+          <p *ngIf="help" class="form-text text-muted" i18n="Group curriculum hint@@helpCoursePossibleLabClassrooms">
+            The course possible laboratory classrooms
+          </p>
+        </div>
+      </div>
+      <br><br><br><br>
+
+      <md-card-actions>
+        <a md-raised-button color="warn" [routerLink]="['/groups']">Cancel</a>
+        <button type="submit" class="pull-right" name="button" [disabled]="!courseForm.form.valid" md-raised-button color="accent">Save</button>
+      </md-card-actions>
+    </form>
+  </md-card>
+
+</div>

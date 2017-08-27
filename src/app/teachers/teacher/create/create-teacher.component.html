@@ -1,0 +1,103 @@
+<md-card>
+    <md-card-title style="display: inline;" i18n="Create teacher title@@teacherCreate">
+        Create teacher
+    </md-card-title>
+
+    <md-checkbox class="pull-right" (click)="disableHelp()" i18n="Indicates whether the user needs help for the input or not@@showHelp">Show help</md-checkbox>
+
+    <br><br><br>
+
+    <form #teacherForm="ngForm" (ngSubmit)="onSubmit(teacherForm.value)" novalidate enctype="multipart/form-data">
+        <div class="form-group">
+            <md-input-container>
+                <input type="text" name="firstName" required placeholder="First name" ngModel mdInput minlength="3" maxlength="25">
+            </md-input-container>
+            <p *ngIf="help">
+                Teacher first name. The lenght must be between 3 and 25 characters.
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-input-container>
+                <input type="text" name="lastName" required placeholder="Last name" ngModel mdInput minlength="3" maxlength="25">
+            </md-input-container>
+            <p *ngIf="help">
+                Teacher last name. The lenght must be between 3 and 25 characters.
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-select placeholder="Study level" name="studyLevel" required ngModel>
+                <md-option *ngFor="let studyLevel of studyLevels" [value]="studyLevel">
+                    {{studyLevel}}
+                </md-option>
+            </md-select>
+
+            <p *ngIf="help" class="form-text text-muted">
+                Study level of the teacher
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-input-container>
+                <input type="number" name="hours" required placeholder="Hours" ngModel mdInput min="1" max="50">
+            </md-input-container>
+            <p *ngIf="help">
+                Teacher assigned hours
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-select placeholder="Check in" name="checkIn" ngModel>
+                <md-option *ngFor="let check of checkIn" [value]="checkIn.indexOf(check)">
+                    {{check}}
+                </md-option>
+            </md-select>
+            <p *ngIf="help">
+                Teacher check in
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-select placeholder="Check out" name="checkOut" ngModel>
+                <md-option *ngFor="let check of checkOut" [value]="checkOut.indexOf(check)">
+                    {{check}}
+                </md-option>
+            </md-select>
+            <p *ngIf="help">
+                Teacher check out
+            </p>
+        </div>
+
+        <div class="form-group">
+            <md-select placeholder="Courses" name="courses" multiple required>
+                <md-optgroup *ngFor="let gh of groupHolders" [label]="gh.group.semester + ' ' + gh.group.shift">
+                    <md-option *ngFor="let c of gh.courses" [value]="c">
+                        {{c.subject.name}}
+                    </md-option>
+                </md-optgroup>
+            </md-select>
+            <p *ngIf="help">
+                Teacher courses
+            </p>
+        </div>
+
+        <div class="form-group">
+            <button type="button" md-raised-button color="primary" name="button" (click)="uploadFile()">
+                <md-icon>file_upload</md-icon> Upload photo
+            </button>
+            <input id="fileToUpload" #inputFile type="file" accept="image/png" style="display:none;" (change)="onChange($event)" ng2FileSelect [uploader]="uploader" required>
+            <span id="fileName" #fileName class="text-muted">{{inputFile.value}}</span>
+
+            <p *ngIf="help">
+                Teacher photo (optional)
+            </p>
+        </div>
+        <br><br><br><br>
+
+        <md-card-actions>
+            <a md-raised-button color="warn" [routerLink]="['/teachers']">Cancel</a>
+            <button type="submit" class="pull-right" name="button" [disabled]="!teacherForm.form.valid" md-raised-button color="accent">Save</button>
+        </md-card-actions>
+    </form>
+</md-card>

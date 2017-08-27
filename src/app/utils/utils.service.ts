@@ -11,9 +11,12 @@ import 'rxjs/add/operator/toPromise';
 export class UtilsService {
   days = "http://localhost:8080/utils/days";
   types = "http://localhost:8080/utils/types";
+  levels = "http://localhost:8080/utils/levels";  
+  checkIn = "http://localhost:8080/utils/times/checkIn";
+  checkOut = "http://localhost:8080/utils/times/checkOut";
   shifts = "http://localhost:8080/utils/shifts";
   semesters = "http://localhost:8080/utils/semesters";
-
+  
   constructor(
     private http: Http
   ) {}
@@ -60,6 +63,23 @@ export class UtilsService {
     return this.http.get(this.semesters)
                       .map(this.response2Json)
                       .catch(this.errorHandler);
+  }
+
+  getStudyLevels(): Observable<string[]> {
+    return this.http.get(this.levels)
+              .map(this.response2Json)
+              .catch(this.errorHandler);
+  }
+  getCheckIn(): Observable<string[]> {
+    return this.http.get(this.checkIn)
+            .map(this.response2Json)
+            .catch(this.errorHandler);
+  }
+
+  getCheckOut(): Observable<string[]> {
+    return this.http.get(this.checkOut)
+            .map(this.response2Json)
+            .catch(this.errorHandler);
   }
 
   private response2Json(response: Response): JSON {

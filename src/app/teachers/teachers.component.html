@@ -1,0 +1,34 @@
+<div *ngIf="!teachers || teachers.length == 0">
+    <h1>
+        No teachers found
+    </h1>
+</div>
+
+<div *ngFor="let teacher of teachers">
+    <md-card class="col-xs-3 grid-list-card">
+        <md-card-header>
+            <img *ngIf="teacher.imgPath == 'undefined'" md-card-avatar src="../../../assets/img/teacher.png" [routerLink]="['/teachers/show', teacher.id]"
+                alt="teacher photo">
+            <img *ngIf="teacher.imgPath != 'undefined'" md-card-avatar [src]="getImageUrl(teacher.imgPath)" [routerLink]="['/teachers/show', teacher.id]"
+                alt="teacher photo">
+
+            <md-card-title>
+                {{teacher.firstName}}
+            </md-card-title>
+            <md-card-subtitle>
+                {{teacher.studyLevel}}
+            </md-card-subtitle>
+        </md-card-header>
+
+        <md-card-actions>
+            <div class="pull-right">
+                <a class="button-edit" md-button [routerLink]="['edit', teacher.id]" i18n="edit button|Pressing this button redirects to a form where the actual values can be updated|@@edit">Edit</a>
+                <a class="button-delete" md-button (click)="openConfirmationDialog(teacher.id)" i18n="delete button|Pressing this button will delete the current element|@@delete">Delete</a>
+            </div>
+        </md-card-actions>
+    </md-card>
+</div>
+
+<button class="fab-embedded" md-fab color="accent" (click)="add()">
+    <md-icon>add</md-icon>
+</button>

@@ -44,7 +44,7 @@ export class BuildingsComponent implements OnInit {
       if (result == 'delete') {
         console.log('Deleted building with id ' + id);
         this.buildingService.delete(id).subscribe(data => {
-          window.location.reload();
+          this.getBuildings();
         });
       }
     });

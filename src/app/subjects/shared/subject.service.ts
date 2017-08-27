@@ -45,7 +45,9 @@ export class SubjectService {
   }
 
   create(subject: Subject): Observable<number> {
-    let options = new RequestOptions({ headers: this.headers });
+    let options = new RequestOptions({
+      headers: this.headers
+    });
 
     return this.http.post(this.subject, JSON.stringify(subject), options)
                       .map(success => success.status)
@@ -55,6 +57,7 @@ export class SubjectService {
   get(id: number): Observable<Subject> {
     let params = new URLSearchParams();
     params.set('id', id.toString());
+    
     let options = new RequestOptions({
       headers: this.headers,
       params: params

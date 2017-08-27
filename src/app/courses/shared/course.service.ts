@@ -28,12 +28,26 @@ export class CourseService {
                         .catch(this.errorHandler);
   }
 
-  create(building: Course): Observable<number> {
+  getByGroup(id: number): Observable<Course[]> {
+    let params = new URLSearchParams();
+    params.set('id', id.toString());
+
+    let options = new RequestOptions({
+      headers: this.headers,
+      params: params
+    })
+
+    return this.http.get(this.courses + '/group', options)
+            .map(this.response2Json)
+            .catch(this.errorHandler);
+  }
+
+  create(course: Course): Observable<number> {
     let options = new RequestOptions({
       headers: this.headers
     });
 
-    return this.http.post(this.course, JSON.stringify(building), options)
+    return this.http.post(this.course, JSON.stringify(course), options)
                           .map(success => success.status)
                           .catch(this.errorHandler);
   }

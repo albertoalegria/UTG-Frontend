@@ -59,7 +59,7 @@
     <br>
 
     <div class="form-group">
-      <md-select placeholder="Subject" name="subject"  ngModel required i18n-placeholder="Placeholder to select the course subject@@placeholderCourseSubject">
+      <md-select placeholder="Subject" name="subject" [(ngModel)]="subject" ngModel (change)="updateClassrooms()" required i18n-placeholder="Placeholder to select the course subject@@placeholderCourseSubject">
         <md-option *ngFor="let subject of subjects" [value]="subject">
           {{subject.name}}
         </md-option>
@@ -71,29 +71,34 @@
     <br>
 
     <div class="form-group">
-      <md-select placeholder="Building" name="building" [(ngModel)]="building" (change)="updateClassrooms()" i18n-placeholder="Placeholder to select the course building@@placeholderCourseBuilding"
-        [ngModelOptions]="{standalone: true}">
-        <md-option *ngFor="let building of buildings" [value]="building">
-          {{building.name}}
-        </md-option>
+      <md-select placeholder="Classrooms" name="classrooms1" multiple [(ngModel)]="classrooms1" [ngModelOptions]="{standalone: true}" required>
+        <md-optgroup *ngFor="let bh of buildingsHolder" [label]="bh.building.name">
+          <md-option *ngFor="let c of bh.classrooms" [value]="c">
+            {{bh.building.name}}-{{c.identifier}}
+          </md-option>
+        </md-optgroup>
       </md-select>
-      <p *ngIf="help" class="form-text text-muted" i18n="Group building hint@@helpCourseBuilding">
-        The course building
+      <p *ngIf="help" class="form-text text-muted" i18n="Group curriculum hint@@helpCoursePossibleClassrooms">
+        The course possible classrooms
       </p>
     </div>
-    <br>
-    
-        <div class="form-group">
-          <md-select placeholder="Classrooms" name="classrooms" multiple ngModel required i18n-placeholder="Placeholder to select the course classrooms@@placeholderCourseClassrooms">
-            <md-option *ngFor="let classroom of classrooms" [value]="classroom">
-              {{building.name}} {{classroom.identifier}}
-            </md-option>
-          </md-select>
-          <p *ngIf="help" class="form-text text-muted" i18n="Course classrooms hint@@helpCourseClassrooms">
-            Select the possible classrooms that can give this course.
-          </p>
-        </div>
 
+    <br>
+
+    <div *ngIf="needsLabs">
+      <div class="form-group">
+        <md-select placeholder="Laboratory Classrooms" name="classrooms2" multiple [(ngModel)]="classrooms2" [ngModelOptions]="{standalone: true}" required>
+          <md-optgroup *ngFor="let bh of buildingsHolder2" [label]="bh.building.name">
+            <md-option *ngFor="let c of bh.classrooms" [value]="c">
+              {{bh.building.name}}-{{c.identifier}}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+        <p *ngIf="help" class="form-text text-muted" i18n="Group curriculum hint@@helpCoursePossibleLabClassrooms">
+          The course possible laboratory classrooms
+        </p>
+      </div>
+    </div>
     <br><br><br><br>
 
     <md-card-actions>
